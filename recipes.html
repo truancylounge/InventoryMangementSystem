@@ -14,15 +14,14 @@
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap-theme.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.0/angular.min.js"></script>
-
     <!-- Latest compiled and minified JavaScript -->
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="rawmaterial.js"></script>
-    <script src="invoice1.js"></script>
     
     <link href="stylesheets/dashboard.css" rel="stylesheet">  
   </head>
   <body> 
+    <div ng-app="" ng-controller="">
       <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -59,28 +58,18 @@
               <li><a href="#">Export</a></li>
             </ul>
             <ul class="nav nav-sidebar">
-              <li class="active"><a href="">Raw Materials</a></li>
-              <li><a href="recipes.html">Recipes</a></li>
+              <li><a href="raw_materials.html">Raw Materials</a></li>
+              <li class="active"><a href="recipes.html">Recipes</a></li>
               <li><a href="products.html">Products</a></li>
             </ul>
           </div>
-          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-app="rawmaterial" ng-controller="RawMaterialController as rawmaterialcontroller">
-            <h1 class="page-header">RawMaterials</h1>
-            <p class="lead">Listed below are all the raw materials that exist. You can also add new raw material.</p>
-            <!--h4 class="sub-header">Raw Materials</h4-->   
-          
+          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <h1 class="page-header">Recipes</h1>
+            <p class="lead">Listed below are all the recipes that exist. You can also add new recipes.</p>
+            <h4 class="sub-header">Recipes</h4>   
  
- <!--div ng-app="invoice1" ng-controller="InvoiceController as invoice">  
-  <div>
-    <b>Total:</b>
-    <span ng-repeat="c in invoice.currencies">
-      {{c}}
-    </span>
-    <button class="btn" ng-click="invoice.pay()">Pay</button>
-  </div>
-</div-->   
 
-            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target=".addRawMaterials">Add RawMaterials</button>
+            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target=".addRecipes">Add Recipes</button>
             <div class="modal fade addRawMaterials" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
@@ -92,29 +81,17 @@
                     <form role="form">
                       <div class="form-group">
                         <label>Name:</label>
-                        <input type="text" class="form-control" id="name" ng-model="name">
+                        <input type="text" class="form-control" id="name" ng-model="rawmaterialcontroller.name">
                       </div>
                       <div class="form-group">
-                        <label>Quantity:</label>
-                        <input type="text" class="form-control" id="quantity" ng-model="quantity">
-                      </div>
-                      <div class="form-group">
-                        <label>Unit:</label>
-                        <input type="text" class="form-control" id="units" ng-model="unit">
-                      </div>
-                      <div class="form-group">
-                        <label>Price:</label>
-                        <input type="text" class="form-control" id="price" ng-model="price">
-                      </div>
-                      <div class="form-group">
-                        <label>TotalPrice:</label>
-                        <input type="text" class="form-control" id="totalPrice" ng-model="totalPrice">
+                        <label>Description:</label>
+                        <input type="text" class="form-control" id="description" ng-model="rawmaterialcontroller.description">
                       </div>
                     </form>
                   </div>
                   <div class="modal-footer">
                     <button type="button" data-dismiss="modal">Close</button>
-                    <button type="Submit" data-dismiss="modal" class="btn btn-primary" ng-click="addRows()">Save changes</button>
+                    <button type="Submit" data-dismiss="modal" class="btn btn-primary" ng-click="rawmaterialcontroller.addRows()">Save changes</button>
                   </div>
                 </div>
               </div>
@@ -124,20 +101,17 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Quantity</th>
-                    <th>Unit</th>
-                    <th>Price per unit</th>
-                    <th>Total Price</th>
+                    <th>Name</th>                    
                   </tr>                  
                 </thead>
-                <tbody ng-repeat="i in items" >                  
-                  <tr><td>{{$index + 1}}</td><td>{{i.name}}</td><td>{{i.quantity}}</td><td>{{i.unit}}</td><td>{{i.price}}</td><td>{{i.totalPrice}}</td></tr>              
+                <tbody ng-repeat="i in rawmaterialcontroller.items" >                  
+                  <tr><td>{{$index + 1}}</td><td>{{i.name}}</td></tr>              
                 </tbody>
               </table>
-            </div>  
+            </div>           
           </div>
         </div>  
       </div>
+    </div>
   </body>
 </html>

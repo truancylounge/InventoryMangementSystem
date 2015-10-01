@@ -12,12 +12,12 @@
 
     <!-- Optional theme -->
     <link rel="stylesheet" href="bootstrap/dist/css/bootstrap-theme.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0-beta.0/angular.min.js"></script>
-
+    <script src="/Users/Lalith/Development/projects/git_projects/InventoryMangementSystem/javascripts/lib/jquery-2.1.4.min.js"></script>
+    <script src="/Users/Lalith/Development/projects/git_projects/InventoryMangementSystem/javascripts/lib/angular-1.4.6.min.js"></script>
+    
     <!-- Latest compiled and minified JavaScript -->
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="rawmaterial.js"></script>
+    <script src="products.js"></script>
     <script src="invoice1.js"></script>
     
     <link href="stylesheets/dashboard.css" rel="stylesheet">  
@@ -59,14 +59,14 @@
               <li><a href="#">Export</a></li>
             </ul>
             <ul class="nav nav-sidebar">
-              <li class="active"><a href="">Raw Materials</a></li>
+              <li><a href="raw_materials.html">Raw Materials</a></li>
               <li><a href="recipes.html">Recipes</a></li>
-              <li><a href="products.html">Products</a></li>
+              <li class="active"><a href="products.html">Products</a></li>
             </ul>
           </div>
-          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-app="rawmaterial" ng-controller="RawMaterialController as rawmaterialcontroller">
-            <h1 class="page-header">RawMaterials</h1>
-            <p class="lead">Listed below are all the raw materials that exist. You can also add new raw material.</p>
+          <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-app="product" ng-controller="ProductController as productcontroller">
+            <h1 class="page-header">Products</h1>
+            <p class="lead">Listed below are all the products that exist. You can also add new products.</p>
             <!--h4 class="sub-header">Raw Materials</h4-->   
           
  
@@ -80,41 +80,48 @@
   </div>
 </div-->   
 
-            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target=".addRawMaterials">Add RawMaterials</button>
-            <div class="modal fade addRawMaterials" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+            <button type="button" class="btn btn-lg btn-primary" data-toggle="modal" data-target=".addProducts">Add Products</button>
+            <div style="padding:20px 0px 60px 0px">
+              <span class="col-md-1" style="font-weight:bold">Search</span>
+              <span class="col-md-3">
+              <input type="text" class="form-control" ng-model="searchKeyword"/>
+              </span>
+            </div>
+
+            <div class="modal fade addProducts" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Add Raw Materials</h4>
+                    <h4 class="modal-title">Add Products</h4>
                   </div>
                   <div class="modal-body">
                     <form role="form">
                       <div class="form-group">
-                        <label>Name:</label>
-                        <input type="text" class="form-control" id="name" ng-model="name">
+                        <label>ProductName:</label>
+                        <input type="text" class="form-control" id="productName" ng-model="productName">
                       </div>
                       <div class="form-group">
-                        <label>Quantity:</label>
-                        <input type="text" class="form-control" id="quantity" ng-model="quantity">
+                        <label>ProductCode:</label>
+                        <input type="text" class="form-control" id="productCode" ng-model="productCode">
                       </div>
                       <div class="form-group">
-                        <label>Unit:</label>
-                        <input type="text" class="form-control" id="units" ng-model="unit">
+                        <label>ProductType:</label>
+                        <input type="text" class="form-control" id="productType" ng-model="productType">
                       </div>
                       <div class="form-group">
-                        <label>Price:</label>
-                        <input type="text" class="form-control" id="price" ng-model="price">
+                        <label>SellingRate:</label>
+                        <input type="text" class="form-control" id="sellingRate" ng-model="sellingRate">
                       </div>
                       <div class="form-group">
-                        <label>TotalPrice:</label>
-                        <input type="text" class="form-control" id="totalPrice" ng-model="totalPrice">
+                        <label>CostRate:</label>
+                        <input type="text" class="form-control" id="costRate" ng-model="costRate">
                       </div>
                     </form>
                   </div>
                   <div class="modal-footer">
                     <button type="button" data-dismiss="modal">Close</button>
-                    <button type="Submit" data-dismiss="modal" class="btn btn-primary" ng-click="addRows()">Save changes</button>
+                    <button type="Submit" data-dismiss="modal" class="btn btn-primary" ng-click="addProducts()">Save changes</button>
                   </div>
                 </div>
               </div>
@@ -124,15 +131,15 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Name</th>
-                    <th>Quantity</th>
-                    <th>Unit</th>
-                    <th>Price per unit</th>
-                    <th>Total Price</th>
+                    <th>ProductName</th>
+                    <th>ProductCode</th>
+                    <th>ProductType</th>
+                    <th>SellingRate</th>
+                    <th>CostRate</th>
                   </tr>                  
                 </thead>
-                <tbody ng-repeat="i in items" >                  
-                  <tr><td>{{$index + 1}}</td><td>{{i.name}}</td><td>{{i.quantity}}</td><td>{{i.unit}}</td><td>{{i.price}}</td><td>{{i.totalPrice}}</td></tr>              
+                <tbody ng-repeat="i in products | filter: searchKeyword" >                  
+                  <tr><td>{{$index + 1}}</td><td>{{i.productName}}</td><td>{{i.productCode}}</td><td>{{i.productType}}</td><td>{{i.sellingRate}}</td><td>{{i.costRate}}</td></tr>              
                 </tbody>
               </table>
             </div>  
